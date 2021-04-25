@@ -28,7 +28,6 @@ for i in range(len(data)):
     data2.append(data1['predicted'])
 for ds in data2:
     top[ds] = data2.count(ds)
-print(top)
 @app.route('/')
 def index():
     return render_template('index.html',files=top)
@@ -46,7 +45,7 @@ def disease():
         db.child("diseases").push({"symptoms":symptoms,"predicted":output[0][maxp],"percentage":round(output[1][maxp],2)})
         return render_template('index.html', files=top, file1=out_1,file2=out_2)
     else:
-        return render_template('index.html')
+        return render_template('index.html',files=top)
 
 
 if __name__ == '__main__':
