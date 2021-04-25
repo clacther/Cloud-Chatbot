@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.X.X/css/all.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+          <a href="#" class="navbar-brand d-flex align-items-center"><strong>Disease Chatbot</strong></a>
+          <div class="navbar-nav">
+            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="#">About</a>
+           
+          </div>
+        </div>
+      </nav>
+    </header>
+      
+    <main class="container">
+
+      <div class="mb-4 bg-light rounded-3 mt-2">
+        <div style="position: absolute;left: 140px;top: 100px;">
+          <h2>Most Searched/Common Diseases:</h2>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+              <ul class="list-group">
+                {% for key in files%}
+                <li class="list-group-item mylist">{{ key }}</li>
+                {%endfor%}
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <img src="{{ url_for('static', filename='bg.jpg') }}" width=100%>
+      </div>
+  
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Guard yourself against these major diseases</h2>
+            <p class="mt-3"><cite>“Health is a state of complete physical, mental, and social well-being and not merely the absence of disease or infirmity.”</cite> -World Health Organization</p>
+            <button class="btn btn-outline-light" type="button">Know more</button>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Watch out for these common symptoms</h2>
+            <p class="mt-3"><cite>“Good health is not something we can buy. However, it can be an extremely valuable savings account.” </cite> -Anne Wilson Schaef</p>
+            <button class="btn btn-outline-secondary" type="button">Know more</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <button class="open-button" onclick="openForm()">Chat</button>
+    <div class="chat-popup" id="myForm">
+      <h1 class="chat-header">Chat<span><i class="fas fa-times"></i></span></h1>
+      <form class="form-container" method="POST" action="">
+        <label for="inp"><b>Enter Symptoms</b></label>
+        <textarea placeholder="મને શ્વાસ ચડી રહ્યો છે..." name="inp" required></textarea>
+
+        <label for="outp"><b>Prediction</b></label>
+        <div class="output bg-light p-3">
+          <p class="bold">Most Likely Disease:</p>
+          <ul class="list-group">
+            {% if file1%}
+            <li class="list-group-item">{{ file1 }}</li>
+            {%endif%}
+          </ul>
+          <hr>
+          <p class="bold">Other Diseases:</p>
+          <ol class="list-group">
+            {%for i in file2%}
+                <li class="list-group-item">{{i}}</li>
+            {%endfor%}
+            </ol>
+        </div>
+        
+        <div class="buttons">
+        <input type="submit" value="Send" class="btn btn-success mt-2">
+        <button type="button" class="btn btn-danger" onclick="closeForm()">Close</button>
+      </div>
+      </form>
+    </div> 
+      
+    <footer class="text-muted py-3">
+      <div class="container">
+        <p class="mb-1 text-center">&copy; Disease Chatbot</p>
+      </div>
+    </footer>
+
+    <script>
+      function openForm() {
+        document.getElementById("myForm").style.display = "block";
+      }
+      
+      function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+      }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/tether.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>
